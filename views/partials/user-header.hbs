@@ -1,0 +1,197 @@
+{{!-- 
+
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-7">
+                        <div class="header__top__left">
+                            <p>Free shipping, 30-day return or refund guarantee.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-5">
+                        <div class="header__top__right">
+                            <div class="header__top__links">
+                                <a href="/signup">sign up</a>
+                                {{#if user}}
+                                <a href="/user-profile ">my profile</a>
+                                {{/if}}
+                            </div>
+                            <div class="header__top__hover text-danger" >
+                              {{#if user}}
+                             {{user.Name}}
+                               {{else}}
+                                <span>Account <i class="drop-down"></i></span>
+                                {{/if}}
+                                <ul>
+                                  {{#if user}}
+                                   <a class="dropdown-item" href="/logout">Logout</a>
+                               {{else}}
+                             <a class="dropdown-item" href="/login">Login</a>
+                               {{/if}} 
+                                   
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a href="/"><img src="/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li class="active"><a href="/">Home</a></li>
+                            
+                            {{#if user}}
+                            <li><a href="/orders">my orders</a></li>
+                            {{/if}}
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__nav__option">
+                        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                        <a href="whishlist"><img src="img/icon/heart.png" alt=""></a>
+                         <!-- Icon -->
+                     <a class="text-reset me-3" href="/cart">
+                   <i class="fas fa-shopping-cart"></i>
+                   <span class="badge badge-danger mx-2" id="cart-count" >{{cartCount}} </span>
+                    </a>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars">
+              <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+            </i>
+             
+                              
+                          
+            </div>
+        </div>
+    </header> 
+
+ --}}
+ <nav class="navbar navbar-expand-lg bg-white sticky-top navbar-light p-3 text-white shadow-sm">
+
+  <div class="container">
+    <a class="navbar-brand" style="color: rgb(255, 255, 255);" href="/"><i class="fa-solid fa-bolt text-danger"></i> <strong class="text-danger">
+        fasion</strong><strong>hub</strong></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
+      <div class="input-group">
+
+        {{!-- <span class="border-warning input-group-text bg-warning text-white"><i
+            class="fa-solid fa-magnifying-glass"></i></span> --}}
+        {{!-- <input type="text" class="form-control border-warning" style="color:#7a7a7a"> --}}
+        {{!-- <button class="btn btn-warning text-white">Search</button> --}}
+      </div>
+    </div>
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      {{!-- <div class="ms-auto d-none d-lg-block">
+        <div class="input-group">
+          <span class="border-warning input-group-text bg-warning text-white"><i
+              class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" class="form-control border-warning" style="color:#7a7a7a">
+          <button class="btn btn-warning text-white">Search</button>
+        </div>
+      </div> --}}
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link mx-2 text-uppercase active text-light" aria-current="page"
+            href="/view-category/shirt">SHIRT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2 text-uppercase text-light " href="/view-category/pants">PANTS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2 text-uppercase text-light" href="/view-category/shoes">SHOES</a>
+        </li>
+
+      </ul>
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item mt-2">
+          <a class="nav-link  text-uppercase text-light" href="/cart"><span class="badge badge-sucsess "
+            style=""  id="cart-count">{{cartCount}}</span><i class="fa-solid fa-cart-shopping me-1"></i> Cart</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          {{#if user}}
+          <a class="nav-link dropdown-toggle mx-2 text-uppercase text-white" href="#" id="navbarDarkDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           <i class="fas fa-user pe-2"></i></i> {{user.Name}}
+          </a>
+          {{else}}
+          <a class="nav-link dropdown-toggle mx-2 text-uppercase text-light" href="#" id="navbarDarkDropdownMenuLink"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-circle-user me-1"></i> Account
+          </a>
+          {{/if}}
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            {{#if user}}
+            <li><a class="dropdown-item text-light" href="/user-profile">Profile</a></li>
+            <li><a class="dropdown-item text-white" href="/orders">My Orders</a></li>
+            {{/if}}
+
+            {{#if user}}
+            <li><a class="dropdown-item text-light" href="/logout">Logout</a></li>
+            {{else}}
+            <li><a class="dropdown-item text-light" href="/login">Login</a></li>
+            {{/if}}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .navbar{
+   background: rgb(0,0,0);
+background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 75%, rgba(255,44,44,0.8242647400757178) 100%);
+  }
+
+  a {
+    font-size: 14px;
+    font-weight: 700
+  }
+
+  .superNav {
+    font-size: 13px;
+  }
+
+  .form-control {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  @media screen and (max-width:540px) {
+    .centerOnMobile {
+      text-align: center
+    }
+  }
+</style>

@@ -1,0 +1,86 @@
+<section class="h-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px;">
+          <div class="card-header px-4 py-5">
+            <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #342d45;">{{user.Name}}</span>!</h5>
+          </div>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0" style="color: #a8729a;">Receipt</p>
+
+            </div>
+            <div class="card shadow-0 border mb-4">
+              <div class="card-body">
+                <div class="row">
+
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
+                    <p class="text-muted mb-0">product</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                    <p class="text-muted mb-0">product name</p>
+                  </div>
+                  <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                    <p class="text-muted mb-0 small">price</p>
+                  </div>
+                   <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                    <p class="text-muted mb-0 small">quantity</p>
+                  </div>
+                  
+                </div>
+                <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+
+                {{!-- next line --}}
+                {{#each products}}
+                <div class="card-body">
+                  <div class="row">
+
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center ">
+                     <img src="/product-images/{{this.product._id}}.jpg " alt="" style="height:150px ;width:300px">
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                      <p class="text-muted mb-0">{{this.product.Name}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                      <p class="text-muted mb-0">{{this.product.Price}}</p>
+                    </div>
+                    <div class="col-md-2 text-center d-flex justify-content-center align-items-center mx-2">
+                      <p class="text-muted mb-0">{{this.quantity}} </p>
+                    </div>
+
+                   
+                    
+
+                    
+
+                    <hr class="mb-4" style="background-color: #e0e0e0; opacity: 1;">
+
+                    {{/each}}
+
+
+
+                    </div>
+                  </div>
+                </div>
+
+
+               
+              </div>
+             
+            </div>
+          </div>
+
+        </div>
+      </div>
+</section>
+
+
+
+<style>
+  .gradient-custom {
+    background-color: #000000;
+    background-image: linear-gradient(315deg, #000000 0%, #b82e1f 74%);
+
+  }
+</style>

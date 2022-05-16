@@ -1,0 +1,151 @@
+{{!-- 
+ <div class="container tm-mt-big tm-mb-big">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="tm-block-title d-inline-block">Add Product</h2>
+              </div>
+            </div>
+            <div class="row tm-edit-product-row">
+              <div class="col-xl-6 col-lg-6 col-md-6">
+                <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+                  <div class="form-group mb-3">
+                    <label
+                      for="name"
+                      >Product Name
+                    </label>
+                    <input
+                      id="name"
+                      name="Name"
+                      type="text"
+                      class="form-control validate"
+                      required
+                    />
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="Description"
+                      >Description</label
+                    >
+                    <textarea
+                      class="form-control validate"
+                      name="Description"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="form-group mb-3">
+                    <label
+                      for="Category"
+                      >Category</label
+                    >
+                    <select
+                      class="custom-select tm-select-accounts"
+                      id="category"
+                      name="Category"
+                    > 
+                      <option selected>Select category</option>
+                      {{#each category}}
+                      <option value="{{this.Category}}">{{this.Category}}</option>
+                      {{/each}}
+                     
+                    </select>
+                  </div>
+                  <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="expire_date"
+                            >original price
+                          </label>
+                          <input
+                            id="expire_date"
+                            name="originalPrice"
+                            type="text"
+                            class="form-control validate"
+                            data-large-mode="true"
+                          />
+                        </div>
+                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                          <label
+                            for="Price"
+                            >price
+                          </label>
+                          <input
+                            id="stock"
+                            name="Price"
+                            type="text"
+                            class="form-control validate"
+                            required
+                          />
+                        </div>
+                  </div>
+                  <div class="float-end">
+                   <label for="">Image</label>
+                    <input type="file" name="Image" class="form-control" required>
+                    <label for="">Image</label>
+                    <input type="file" name="Image1" class="form-control" required>
+                     <label for="">Image</label>
+                    <input type="file" name="Image2" class="form-control"required>
+                   
+                  </div>
+
+                  
+              </div>
+             
+                
+              </div>
+              <div class="col-6 p-5">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> --}}
+    <section>
+    <div class="container mt-4 text-aline-center">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center">Add Product</h2>
+                <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
+                    <label for="">Name</label>
+                    <input type="text" name="Name" class="form-control">
+
+                    {{!-- <label for="">Category</label>
+                    <input type="text" name="Category" class="form-control"> --}}
+                    <label for="">Category</label>
+                    <select class="form-select" name="Category" aria-label="Default select example">
+                        <option selected>Category</option>
+                        {{#each category}}
+                        <option value="{{this.Category}}">{{this.Category}}</option>
+                        {{/each}}
+                    </select>
+
+
+                    <label for="">Price</label>
+                    <input type="text" name="originalPrice" class="form-control">
+
+                    <label for="">Offer Percentage</label>
+                    <input type="text" name="offerPercentage" class="form-control">
+
+                    <label for="">Description</label>
+                     <input type="text" name="Description" class="form-control">
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image" class="form-control">
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image2" class="form-control">
+
+                    <label for="">Image</label>
+                    <input type="file" name="Image3" class="form-control">
+
+                    <button type="submit" class="btn btn-success mt-4">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

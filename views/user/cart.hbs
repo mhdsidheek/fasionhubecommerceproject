@@ -1,0 +1,130 @@
+  <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    {{#if products}}
+                    <div class="shopping__cart__table ">
+                        <table>
+                            <thead>
+                                <tr class="bg-black" >
+                                    <th class="text-light" >Product</th>
+                                    <th class="text-light">Quantity</th>
+                                    <th class="text-light">Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each products}}
+                                 <tr>
+                                     
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img style="width: 110px; height:auto" src="/product-images/{{this.product._id}}.jpg" alt="img">
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <h6> {{this.product .Name}}</h6>
+                                            <h5>₹{{this.product.Price}} </h5>
+                                        </div>
+                                       
+                                    </td>
+                                    {{!-- <td class="quantity__item">
+                                        <div class="quantity">
+                                            <div class="pro-qty-2">
+                                                <input type="text" value="1">
+                                            </div>
+                                        </div>
+                                    </td> --}}
+                                    <td >
+                                    <button class="btn btn-dark px-3 ms-2" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1 )" >-</button>
+                                    <span id="{{this.product._id}}">{{this.quantity}}</span>
+                                    <button class="btn btn-dark px-3 ms-2" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1 )"  >+</button>
+                                    </td>
+                                    {{!-- <td class="cart__price">$ 30.00</td>
+                                     <td class="cart__close"><i class="fa fa-close"></i></td>  --}}
+                                    <td>
+                                        <button class="btn btn-danger" onclick="removeCartProduct('{{this._id}}','{{this.product._id}}' )" >remove</button>
+                                    </td>
+                                </tr> 
+                                {{/each}}
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                    {{else}}
+                    <h1>your cart is empty</h1>
+                    {{/if}}
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn " style="border-bottom:dark;" >
+                                <a href="/">Continue Shopping</a>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                {{#if products}}
+                <div class="col-lg-4">
+                   
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>total <span id="total">₹{{totalValue}}</span></li>
+                            {{!-- <li>Total <span id="total">₹{{totalValue}}</span></li> --}}
+                        </ul>
+                        <a href="/place-order" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+    <script>
+        function changeQuantity(cartId,proId,userId,count){
+        let quantity=parseInt(document.getElementById(proId).innerHTML)
+        count=parseInt(count)
+
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                user:userId,
+                cart:cartId,
+                product:proId,
+                count:count,
+                quantity:quantity
+            },
+            method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                    alert("Product Removed from cart")
+                    location.reload()
+                }else{
+                    document.getElementById(proId).innerHTML=quantity+count
+                    document.getElementById('total').innerHTML=response.total
+                }
+               
+            }
+        })
+    }
+      function removeCartProduct(cartId,proId){
+        $.ajax({
+            url:'/remove-cart-product',
+            data:{
+                cart:cartId,
+                product:proId
+            },
+            method:'post',
+            success:(response)=>{
+                if(response){
+                  
+                    location.reload()  
+                }
+            }
+        })
+    }
+    </script>
+    <style>
+
+        .continue__btn:border:1px,
+    </style>

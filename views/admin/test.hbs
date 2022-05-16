@@ -1,0 +1,36 @@
+<div class="col-md-4    ">
+  <div class="card mx-4">
+        <div class="card-header py-3">
+          <h5 class="mb-0">Appy Coupon to get discount!</h5>
+        </div>
+         <div class="card-body">
+            <div class="single-form form-default">
+                  <div class="form-input form">
+                    <input type="text" placeholder="Coupon Code" id="couponInput" name="Coupon" />
+                  </div>
+                  <input type="text" id="couponTotal" name="Total" value="{{total}}" hidden>
+                  <div class="button mt-3" >
+                    <a id="couponBtn"  onclick="couponApply()" class="btn btn-success">apply</a>
+                  </div>
+                  {{!-- Error handling of coupons --}}
+                  <div class="mt-2">
+                    <div class="alert alert-danger" style="display: none;" id="couponUsed" role="alert">
+                      This Coupon was redeemed
+                    </div>
+                    <div class="alert alert-danger" style="display: none;" id="couponInvalid" role="alert">
+                      This Coupon is invalid
+                    </div>
+                    <div class="alert alert-success" style="display: none;" id="couponSuccess" role="alert">
+                      Coupon Applied Successfully
+                    </div>
+                    <div class="alert alert-warning" style="display: none;" id="couponExpired" role="alert">
+                      Sorry!!! Your Coupon has been Expired
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+         </div>
+  </div>
+ </div>
+ 
