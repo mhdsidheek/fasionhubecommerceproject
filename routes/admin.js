@@ -103,29 +103,14 @@ router.get('/edit-product/:id',verifyLogin,async(req,res)=>{
   res.render('admin/edit-product',{product,admin:true})
 })
 
-// router.post('/edit-product/:id',verifyLogin,(req,res)=>{
-//   let id=req.params.id
-//   let image=req.files?.Image
-//   let image1=req.files.Image1
-//   let image2=req.files.Image2
-//   productHelpers.updateProduct(req.params.id,req.body).then(()=>{
-//     res.redirect('/admin')
-//     if(image){
-//         image.mv('./public/product-images/'+id+'.jpg')
-//         image1.mv('./public/product-images1/'+id+'.jpg')  
-//         image2.mv('./public/product-images2/'+id+'.jpg')
-//     }
-//   })
-// })
+
 
 router.post('/edit-product/:id', verifyLogin, (req, res) => {
   let id = req.params.id
-  // let image = req.files?.Image
   console.log("req.body", req.body);
-  // let category=productHelpers.getAllcategory() 
   productHelpers.updateProduct(req.params.id, req.body).then(() => {
     res.redirect('/admin/view-products')
-    // console.log(req.files.Image);
+    
     if (req.files?.Image && req.files?.Image1&& req.files?.Image2) {
       let image = req.files.Image
       image.mv('./public/product-images/' + id + '.jpg')
@@ -182,17 +167,12 @@ router.post('/block-user',verifyLogin,(req,res)=>{
  console.log("1236544");
   console.log(req.body.id);
   productHelpers.blockUser(req.body.id).then((response)=>{
-    // if (response){
-    //   req.session.destroy()
-    // }
     
      res.redirect('/admin/view-user')
   })
 });
 
 router.post('/unblock-user',verifyLogin,(req,res)=>{
-  
- 
   productHelpers.unblockUser(req.body.id).then((response)=>{
     res.redirect('/admin/view-user')
   })
@@ -250,7 +230,7 @@ router.post("/edit-category/:id",verifyLogin,(req,res)=>{
   }
 
 )
-router.get('/orders',(req,res)=>{
+router.get('/orders',verifyLogin,(req,res)=>{
   productHelper.getAllOrders().then((orders)=>{
     
     res.render('admin/orders',{orders,admin:true})
@@ -270,7 +250,7 @@ router.get('/product-details/:id',async(req,res)=>{
 res.render('admin/product-details',{products,admin:true})
 })
 
-router.post('/statusUpdate',(req,res)=>{
+router.post('/statusUpdate',verifyLogin,(req,res)=>{
   let status=req.body.status
   let orderId=req.body.orderId
   productHelpers.statusUpdate(status,orderId).then((response)=>{
@@ -284,14 +264,14 @@ router.get('/offer-mgt',verifyLogin,async(req,res)=>{
   console.log("offerList:",offerList);
     res.render('admin/offer-mgt',{allProducts,offerList,admin:true}) 
 })
-router.post('/product-offer',(req,res)=>{
+router.post('/product-offer',verifyLogin,(req,res)=>{
   let data=req.body
   productHelpers.addProductOffer(data).then((resp)=>{
     res.redirect('/admin/offer-mgt')
 
   })
 })
-router.post('/delete-product-offer',(req,res)=>{
+router.post('/delete-product-offer',verifyLogin,(req,res)=>{
    console.log('delete-offer');
   let proId=req.body.proId
   let offerId=req.body.offerId
@@ -310,7 +290,7 @@ router.get('/add-coupon',async(req,res)=>{
   let AllCoupons=await productHelpers.getAllCoupons()
   res.render('admin/add-coupon',{admin:true,AllCoupons})
 })
-router.post('/add-coupon',(req,res)=>{
+router.post('/add-coupon',verifyLogin,(req,res)=>{
   let data=req.body
   productHelpers.addCoupon(data).then((resp)=>{
     res.redirect('/admin/add-coupon')
@@ -319,13 +299,13 @@ router.post('/add-coupon',(req,res)=>{
 
 
 
-router.get('/category-offer',async(req,res)=>{
+router.get('/category-offer',verifyLogin, async(req,res)=>{
   let category=await productHelpers.getAllcategory()
   let categoryOffers=await productHelpers.getAllCatOffer()
   console.log('category:',category);
   res.render('admin/category-offer',{category,categoryOffers,admin:true})
 })
-router.post('/category-offer',async(req,res)=>{
+router.post('/category-offer',verifyLogin, async(req,res)=>{
   let body=req.body
   console.log(body);
   let data=await productHelpers.addCategoryOffer(body).then((resp)=>{
@@ -334,7 +314,7 @@ router.post('/category-offer',async(req,res)=>{
   })
  
 })
-router.post('/delete-category-offer',(req,res)=>{
+router.post('/delete-category-offer',verifyLogin, (req,res)=>{
   offerId=req.body
   console.log("offerId",offerId);
   productHelpers.deleteCategoryOffer(offerId)
@@ -353,8 +333,7 @@ router.get("/reports",verifyLogin,(req,res)=>{
       res.render("admin/reports",{admin:true,data})
     })
   })
-  router.post("/delete-coupon",(req,res)=>{
-    console.log("jxhusihxun");
+  router.post("/delete-coupon",verifyLogin,(req,res)=>{
     couponId=req.body.couponId,
     console.log("coup",couponId);
     productHelpers.deleteCoupon(couponId).then((result)=>{

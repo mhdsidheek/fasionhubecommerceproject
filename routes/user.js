@@ -162,7 +162,7 @@ router.get('/cart',verifyLogin,async(req,res)=>{
   // console.log(products);
 res.render('user/cart',{products,user:req.session.user,totalValue})
 })
-router.get('/add-to-cart/:id',(req,res)=>{
+router.get('/add-to-cart/:id',verifyLogin,(req,res)=>{
   console.log('api call')
   console.log(req.params.id);
   console.log("user",req.session.user._id);
@@ -170,7 +170,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
     res.json({status:true})
   })
 })
-router.post('/change-product-quantity',(req,res,next)=>{
+router.post('/change-product-quantity',verifyLogin,(req,res,next)=>{
   console.log(req.body);
   userHelpers.changeProductQuantity(req.body).then(async(response)=>{
     response.total=await userHelpers.getTotalAmount(req.body.user)
@@ -179,7 +179,7 @@ router.post('/change-product-quantity',(req,res,next)=>{
 
   })
 })
-router.post('/remove-cart-product',(req,res,next)=>{
+router.post('/remove-cart-product',verifyLogin,(req,res,next)=>{
   console.log(req.body)
  userHelpers.removeCart(req.body).then((response)=>{
    console.log("json", response);
@@ -260,7 +260,7 @@ router.get('/place-order',verifyLogin,async(req,res)=>{
   console.log("add",address);
   res.render('user/place-order',{total,user:req.session.user,address,user1})
 })
-router.get('/check-out',async(req,res)=>{
+router.get('/check-out',verifyLogin, async(req,res)=>{
   console.log("/place-order called rout");
   console.log(req.session.user._id);
   let userId=req.session.user._id
@@ -383,7 +383,7 @@ router.post('/verify-payment',(req,res)=>{
     res.json({status:false,errMsg:''})
   })
 })
-router.post('/add-order-address',(req,res)=>{
+router.post('/add-order-address',verifyLogin,(req,res)=>{
   userId=req.session.user._id
   data=req.body
   userHelpers.addAddress(userId,data).then((response)=>{
@@ -399,12 +399,12 @@ router.get('/orders',async(req,res)=>{
   // console.log(orders);
   res.render('user/orders',{user:req.session.user,orders})
 })
-router.get('/view-order-products/:id',async(req,res)=>{
+router.get('/view-order-products/:id',verifyLogin, async(req,res)=>{
  let products=await userHelpers.getOrderProducts(req.params.id)
  
  res.render('user/view-order-products',{user:req.session.user,products})
 })
-router.get('/user-profile',async(req,res)=>{
+router.get('/user-profile',verifyLogin, async(req,res)=>{
  let user= await productHelpers.getuserDetails(req.session.user?._id)
 let refer = req.session.user.refer;
   let referalLink = "localhost:3000/signup?refer=" + refer;
@@ -412,7 +412,7 @@ let refer = req.session.user.refer;
  
   res.render('user/user-profile',{user,referalLink})
 })
-router.get('/address',async(req,res)=>{
+router.get('/address',verifyLogin, async(req,res)=>{
   let address=await userHelpers.getAddress(req.session.user?._id)
   res.render('user/address',{address,user:req.session.user} )
 })
@@ -448,7 +448,7 @@ router.get('/edit-address/:id',(req,res)=>{
   })
  
 })
-router.post('/edit-address',(req,res)=>{
+router.post('/edit-address',verifyLogin,(req,res)=>{
   userId=req.session.user._id
   addressId=req.body.addressId
   data=req.body
@@ -487,7 +487,7 @@ router.post('/edit-user-profile',async(req,res)=>{
        }
      })
 })
-router.post('/cancel-order',(req,res)=>{
+router.post('/cancel-order',verifyLogin,(req,res)=>{
   orderId=req.body.orderId
   console.log(orderId,"anu");
    userHelpers.cancelOrder(orderId).then((response)=>{
@@ -514,7 +514,7 @@ router.post("/couponApply",verifyLogin, (req, res) => {
 
 
 //applay the wallet into place-order page
-router.post('/applayWallet', async (req, res) => {
+router.post('/applayWallet',verifyLogin, async (req, res) => {
   var user = req.session.user._id;
   let ttl = parseInt(req.body.Total);
   let walletAmount = parseInt(req.body.wallet);
