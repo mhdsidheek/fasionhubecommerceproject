@@ -651,6 +651,19 @@ module.exports={
         let product=await db.get().collection(collection.PRODUCT_COLLECTION).find({Category:cat}).toArray()
         res(product)
        })
+      },cancelOrder:(orderId)=>{
+          return new Promise((resolve,reject)=>{
+              db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId) },
+                {
+                    $set:{
+                        status:"cancel"
+                    }
+                }
+                ).then((response)=>{
+                    resolve(true)
+                })
+          })
       }
+
      
-        }
+ }
