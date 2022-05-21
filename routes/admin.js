@@ -94,7 +94,8 @@ router.post('/add-product',verifyLogin,(req,res)=>{
 router.get('/delete-product/:id',verifyLogin,(req,res)=>{
     let proId=req.params.id
     productHelpers.deleteProduct(proId).then((response)=>{
-      res.redirect('/admin/view-products')
+      // res.redirect('/admin/view-products')
+      res.json({status:true})
     })
 })
 
@@ -318,6 +319,7 @@ router.post('/delete-category-offer',verifyLogin, (req,res)=>{
   offerId=req.body
   console.log("offerId",offerId);
   productHelpers.deleteCategoryOffer(offerId)
+  res.json({status:true})
 })
 router.get("/reports",verifyLogin,(req,res)=>{
   productHelpers.monthlyReport().then((data)=>{

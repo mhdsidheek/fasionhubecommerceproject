@@ -58,7 +58,7 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-striped" id="productOfferTable">
+  <table class="table " id="productOfferTable">
     <thead>
       <tr>
         <th scope="col">No</th>
@@ -73,7 +73,7 @@
     <tbody>
       {{#each categoryOffers}}
       <tr>
-        <td class="align-middle">{{@index}}</td>
+        <td class="align-middle">{{inc @index}}</td>
         <td class="align-middle"> {{this.offerProduct}} </td>
         <td class="align-middle"> {{this.discount}}%</td>
        

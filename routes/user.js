@@ -258,7 +258,13 @@ router.get('/place-order',verifyLogin,async(req,res)=>{
   let address=await userHelpers.getAddress(req.session.user._id)
  let user1=await productHelpers.getuserDetails(req.session.user._id)
   console.log("add",address);
-  res.render('user/place-order',{total,user:req.session.user,address,user1})
+  if(total!==0){
+    res.render('user/place-order',{total,user:req.session.user,address,user1})
+  }
+  else{
+    res.redirect('/')
+  }
+ 
 })
 router.get('/check-out',verifyLogin, async(req,res)=>{
   console.log("/place-order called rout");

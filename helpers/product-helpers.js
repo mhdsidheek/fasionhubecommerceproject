@@ -339,10 +339,10 @@ module.exports = {
         })
     }, addCoupon: (data) => {
         return new Promise(async (resolve, reject) => {
-            let startDateIso = new Date(data.start)
-            let endDateIso = new Date(data.expiry)
+            // let startDateIso = new Date(data.start)
+             let endDateIso = new Date(data.expiry)
             let expiry = await moment(data.expiry).format('YYY-MM-DD')
-            let starting = await moment(data.start).format('YYYY-MM-DD')
+            // let starting = await moment(data.start).format('YYYY-MM-DD')
             let dataobj = {
                 coupon: data.coupon,
                 discount: parseInt(data.discount),
@@ -403,7 +403,7 @@ module.exports = {
 
 
 
-                    let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({ Category: onedata.offerProduct, offer:{ $exists: false } ,prooffer:{ $exists:false}}).toArray();
+                    let products = await db.get().collection(collection.PRODUCT_COLLECTION).find({ Category: onedata.offerProduct, offer:{ $exists: false },offer: false ,prooff:{ $exists:false},prooff:false}).toArray();
                     console.log("pro", products);
                     console.log("one", onedata);
 
@@ -523,15 +523,89 @@ module.exports = {
                   resolve({status:true})
               })
           })
-      },statusUpdate:(status,orderId)=>{
-          return new Promise((resolve,reject)=>{
-              db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-              {
-                  $set:{
-                      status:status
+      },
+    //   statusUpdate:(status,orderId)=>{
+    //       return new Promise((resolve,reject)=>{
+    //           db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
+    //           {
+    //               $set:{
+    //                   status:status
+    //               }
+    //           }
+    //           ).then((resolve))
+    //       })
+    //   },
+    statusUpdate: (status, orderId) => {
+        return new Promise((resolve, reject) => {
+            if (status == "Delevered") {
+
+                db.get().collection(collection.ORDER_COLLECTION).updateOne({ id: objectId(orderId) }, {
+                    $set: {
+                        status: status,
+                        Cancelled: false,
+                        Delivered: true
+                    }
+                })
+            }
+            else if (status == "Cancelled") {
+                db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
+                    $set: {
+                        status: status,
+                        Cancelled: true,
+                        Delivered: false
+                    }
+
+                })
+            } else {
+                db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
+                    $set: {
+                        status: status,
+
+
+
+
+                    }
+                }).then((response) => {
+                    resolve(true)
+                })
+
+            }
+
+        })
+    },
+      
+      deleteCategoryOffer: (id) => {
+        console.log(id.offerId);
+        return new Promise(async (res, rej) => {
+            console.log("priiii");
+          let categoryOffer = await db.get().collection(collection.CATEGORY_OFFER).findOne({ _id:objectId(id.offerId) })
+          let catName = categoryOffer.offerProduct
+          console.log("cat",categoryOffer);
+          console.log("nam",catName);
+          let product = await db.get().collection(collection.PRODUCT_COLLECTION).find({ Category: catName }, { offer: { $exists: true } }).toArray()
+          if (product) {
+            db.get().collection(collection.CATEGORY_OFFER).deleteOne({ _id: objectId(id.offerId) }).then(async () => {
+              await product.map((product) => {
+                console.log("pro",product);
+                db.get().collection(collection.PRODUCT_COLLECTION).updateOne({ _id: objectId(product._id) }, {
+                  $set: {
+                    Price: product.originalPrice
+                  },
+                  $unset: {
+                    offer: "",
+                    catOfferPercentage: '',
+                    actualPrice: ''
                   }
-              }
-              )
-          })
-      }
-}
+                }).then(() => {
+                  res()
+                })
+              })
+            })
+          } else {
+            res()
+          }
+    
+        })
+    
+      },
+    }
