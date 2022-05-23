@@ -92,8 +92,11 @@ router.post('/add-product',verifyLogin,(req,res)=>{
 })
 
 router.get('/delete-product/:id',verifyLogin,(req,res)=>{
+  console.log("delete...................");
     let proId=req.params.id
     productHelpers.deleteProduct(proId).then((response)=>{
+      console.log("................d");
+      console.log(response);
       // res.redirect('/admin/view-products')
       res.json({status:true})
     })

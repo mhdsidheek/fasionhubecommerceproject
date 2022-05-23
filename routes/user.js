@@ -441,7 +441,7 @@ router.get('/delete-address/:id',(req,res)=>{
   console.log("123654475",addressId)
   userHelpers.deleteAddress(userId,addressId).then((resp)=>{
     console.log(resp);
-    res.redirect("/address")
+    res.json({status:true})
   })
 })
 router.get('/edit-address/:id',(req,res)=>{

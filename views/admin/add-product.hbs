@@ -8,11 +8,11 @@
                 <form action="/admin/add-product" method="POST" enctype="multipart/form-data">
                    
                     <label for="">Name</label>
-                    <input type="text" name="Name" class="form-control">
+                    <input type="text" name="Name" class="form-control" required>
 
                    
                     <label for="">Category</label>
-                    <select class="form-select" name="Category" aria-label="Default select example">
+                    <select class="form-select" name="Category" aria-label="Default select example" required>
                         <option selected>Category</option>
                         {{#each category}}
                         <option value="{{this.Category}}">{{this.Category}}</option>
@@ -21,22 +21,22 @@
 
 
                     <label for="">orginal Price</label>
-                    <input type="text" name="originalPrice" class="form-control">
+                    <input type="price" name="originalPrice" class="form-control" required>
                     <label for="">Price</label>
-                    <input type="text" name="Price" class="form-control">
+                    <input type="price" name="Price" class="form-control">
                     
 
                     <label for="">Description</label>
-                     <input type="text" name="Description" class="form-control">
+                     <input type="text" name="Description" class="form-control" required>
 
                     <label for="">Image</label>
-                    <input type="file" name="Image" class="form-control">
+                    <input type="file" name="Image" class="form-control" required>
 
                     <label for="">Image</label>
-                    <input type="file" name="Image1" class="form-control">
+                    <input type="file" name="Image1" class="form-control"required
 
                     <label for="">Image</label>
-                    <input type="file" name="Image2" class="form-control">
+                    <input type="file" name="Image2" class="form-control" required>
 
                     <button type="submit" class="btn btn-success mt-4">Submit</button>
                 </form>

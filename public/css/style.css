@@ -1001,53 +1001,6 @@ ol {
 	transition: all, 0.8s;
 }
 
-/* .product__item__pic .product__hover li {
-	list-style: none;
-	margin-bottom: 10px;
-	position: relative;
-} */
-
-/* .product__item__pic .product__hover li:hover span {
-	opacity: 1;
-	visibility: visible;
-} */
-
-/* .product__item__pic .product__hover li span {
-	color: #ffffff;
-	background: #111111;
-	display: inline-block;
-	padding: 4px 10px;
-	font-size: 12px;
-	position: absolute;
-	left: -78px;
-	top: 5px;
-	z-index: 1;
-	opacity: 0;
-	visibility: hidden;
-	-webkit-transition: all, 0.3s;
-	-o-transition: all, 0.3s;
-	transition: all, 0.3s;
-} */
-
-/* .product__item__pic .product__hover li span:after {
-	position: absolute;
-	right: -2px;
-	top: 5px;
-	height: 15px;
-	width: 15px;
-	background: #111111;
-	content: "";
-	-webkit-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	transform: rotate(45deg);
-	z-index: -1;
-} */
-
-/* .product__item__pic .product__hover li img {
-	background: #ffffff;
-	padding: 10px;
-	display: inline-block;
-} */
 
 .product__item__text {
 	padding-top: 25px;
