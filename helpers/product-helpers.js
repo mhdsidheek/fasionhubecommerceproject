@@ -15,7 +15,7 @@ module.exports = {
     },
     getAllProducts: () => {
         return new Promise(async (resolve, reject) => {
-            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()
+            let products = await db.get().collection(collection.PRODUCT_COLLECTION).find().toArray()    
             resolve(products)
         })
     },
@@ -524,30 +524,22 @@ module.exports = {
               })
           })
       },
-    //   statusUpdate:(status,orderId)=>{
-    //       return new Promise((resolve,reject)=>{
-    //           db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-    //           {
-    //               $set:{
-    //                   status:status
-    //               }
-    //           }
-    //           ).then((resolve))
-    //       })
-    //   },
+   
     statusUpdate: (status, orderId) => {
         return new Promise((resolve, reject) => {
-            if (status == "Delevered") {
-
-                db.get().collection(collection.ORDER_COLLECTION).updateOne({ id: objectId(orderId) }, {
+            console.log(status,orderId);
+            if (status == "delivered") {
+                console.log('sidheek');
+                db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
                     $set: {
                         status: status,
-                        Cancelled: false,
+                        cancelled: false,
                         Delivered: true
                     }
+
                 })
             }
-            else if (status == "Cancelled") {
+            else if (status == "cancelled") {
                 db.get().collection(collection.ORDER_COLLECTION).updateOne({ _id: objectId(orderId) }, {
                     $set: {
                         status: status,
@@ -566,6 +558,7 @@ module.exports = {
 
                     }
                 }).then((response) => {
+                    console.log("response",response);
                     resolve(true)
                 })
 

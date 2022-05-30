@@ -52,10 +52,14 @@
 
                  <div class="col-md-1 text-center  justify-content-center align-items-center mt-3">
                  <a href="/view-order-products/{{this._id}}" class="btn btn-dark text-light" style="width:7.4rem " >view product</a>
-                 {{#if Delivered}}
-                 <a href="/view-order-products/{{this._id}}" class="btn btn-dark text-light  " style="margin-top: 1rem; width:7.4rem ;">return</a>
+                 {{#if this.Delivered}}
+      
+                 {{else}}
+                 {{#if this.cancelled}}
+                 
                  {{else}}
                  <button class="btn btn-dark text-light  "style="margin-top: 1rem; width:7.4rem ; " onclick= "cancelOrder('{{this._id}}')" >cancel </button>
+                 {{/if}}
                  {{/if}}
 
                  </div>
@@ -130,3 +134,37 @@ background-image: linear-gradient(315deg, #d7ab27 0%, #f8f8f8 74%);
   }
 
 </script>
+<script>
+function cancelOrder(orderId){
+          Swal.fire({
+  title: 'Are you sure?',
+  text: "You want to Change this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+  if (result.isConfirmed) {
+       $.ajax({
+            url:'/cancel-order',
+           data:{
+        orderId:orderId
+      },
+            method:'post',
+            success:(response)=>{
+                if(response){
+                  
+                    location.reload()  
+                }
+            }
+        })
+    Swal.fire(
+      'order cancelled!',
+      'success'
+    )
+  }
+})
+       
+    }
+    </script>

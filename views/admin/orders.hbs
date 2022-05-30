@@ -37,7 +37,14 @@
                             <td><b>{{this.totalAmount}} </b></td>
                             <td><a href="/admin/product-details/{{this._id}} " class="btn btn-primary">details</a> </td>
                             <td>{{this.paymentmethod}} </td>
+                            
                             <td>
+                                {{#if this.Delivered}}
+                            <a class="btn btn-success">delivered</a>
+                            {{else}}
+                            {{#if this.cancelled}}
+                            <a class="btn btn-danger">cancelled</a>
+                            {{else}}
                                 <select name="order-status" onchange="deliveryStatus(value,'{{this._id}}')">
                                     <option value="{{this.status}}" selected disabled>{{this.status}}</option>
                                     <option value="cancelled">Cancel</option>
@@ -45,6 +52,8 @@
                                     <option value="delivered">Delivered</option>
                                 </select>
                             </td>
+                            {{/if}}
+                            {{/if}}
 
                         </tr>
                     </tbody>
@@ -57,45 +66,40 @@
 
     <script>
         function deliveryStatus(value, orderId) {
-             Swal.fire({
-  title: 'Are you sure?',
-  text: "You want to change status!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes!'
-}).then((result) => {
-  if (result.isConfirmed) {
-       $.ajax({
-                url: '/admin/statusUpdate',
-                method: 'post',
-                data: {
-                    status: value,
-                    orderId: orderId
-                },
-                success: (response) => {
-                    if (response) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to change status!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: '/admin/statusUpdate',
+                        method: 'post',
+                        data: {
+                            status: value,
+                            orderId: orderId
+                        },
+                        success: (response) => {
+                            if (response) {
+                                Swal.fire(
+                                    'status updated',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
 
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Your change has been saved',
-                            showConfirmButton: false,
-                            timer: 5000
-                        })
-                        location.reload()
-                    }
+
+                                location.reload()
+                            }
+                        }
+                    })
+
+
                 }
             })
 
-    Swal.fire(
-      'Deleted!',
-      'Your file has been deleted.',
-      'success'
-    )
-  }
-})
-           
         }
     </script>

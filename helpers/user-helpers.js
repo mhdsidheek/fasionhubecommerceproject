@@ -655,7 +655,9 @@ module.exports={
               db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId) },
                 {
                     $set:{
-                        status:"cancel"
+                        status:"cancelled",
+                        cancelled:true,
+                        Delivered: false
                     }
                 }
                 ).then((response)=>{

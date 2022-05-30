@@ -317,8 +317,8 @@ router.get('/check-out',verifyLogin, async(req,res)=>{
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success",
-            "cancel_url": "http://localhost:3000/orders"
+            "return_url": "http://fasionhub.xyz/success",
+            "cancel_url": "http://fasionhub.xyz/cancell"
         },
         "transactions": [{
             "item_list": {
@@ -413,7 +413,7 @@ router.get('/view-order-products/:id',verifyLogin, async(req,res)=>{
 router.get('/user-profile',verifyLogin, async(req,res)=>{
  let user= await productHelpers.getuserDetails(req.session.user?._id)
 let refer = req.session.user.refer;
-  let referalLink = "localhost:3000/signup?refer=" + refer;
+  let referalLink = "fasionhub.xyz/signup?refer=" + refer;
  console.log(user);
  
   res.render('user/user-profile',{user,referalLink})

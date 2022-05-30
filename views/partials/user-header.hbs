@@ -31,7 +31,9 @@
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
                     <li><a class="dropdown-item" href="/user-profile">My Profile</a></li>
+                    {{#if user}}
                     <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+                    {{/if}}
                     <li>
                         <hr class="dropdown-divider">
                     </li>
