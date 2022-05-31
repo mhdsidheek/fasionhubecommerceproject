@@ -18,6 +18,15 @@ var session=require('express-session')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use((req, res, next) => {
+  if (!req.user) {
+      res.header('cache-control', 'private,no-cache,no-store,must revalidate')
+      res.header('express', '-3')
+      res.header('paragrm', 'no-cache')
+  }
+  next();
+})
+
 app.engine('hbs',hbs.engine(
   {helpers: {
 
